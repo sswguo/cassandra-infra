@@ -58,7 +58,7 @@ spec:
         - name: cassandra-data
           mountPath: /var/lib/cassandra
         - name: cassandra-config
-          mountPath: /custom/init/config/
+          mountPath: /custom/cassandra/config/
       volumes:
         - name: cassandra-config
           configMap:
