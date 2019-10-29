@@ -36,6 +36,13 @@ spec:
           requests:
             cpu: "500m"
             memory: 1Gi
+        lifecycle:
+          preStop:
+            exec:
+              command: 
+              - /bin/sh
+              - -c
+              - nodetool drain
         env:
           - name: MAX_HEAP_SIZE
             value: 512M
