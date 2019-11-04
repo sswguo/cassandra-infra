@@ -90,7 +90,7 @@ calculate_heap_sizes()
 java_ver_output=`"${JAVA:-java}" -version 2>&1`
 jvmver=`echo "$java_ver_output" | grep '[openjdk|java] version' | awk -F'"' 'NR==1 {print $2}' | cut -d\- -f1`
 JVM_VERSION=${jvmver%_*}
-JVM_PATCH_VERSION=25
+JVM_PATCH_VERSION=${jvmver#*_}
 
 if [ "$JVM_VERSION" \< "1.8" ] ; then
     echo "Cassandra 3.0 and later require Java 8u40 or later."
@@ -122,7 +122,7 @@ case "$jvm" in
 esac
 
 #GC log path has to be defined here because it needs to access CASSANDRA_HOME
-JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc.log"
+JVM_OPTS="$JVM_OPTS -Xloggc:${CASSANDRA_HOME}/logs/gc.log"
 
 # Here we create the arguments that will get passed to the jvm when
 # starting cassandra.
@@ -283,7 +283,7 @@ JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/
 ## which delegates to the IAuthenticator configured in cassandra.yaml. See the sample JAAS configuration
 ## file cassandra-jaas.config
 #JVM_OPTS="$JVM_OPTS -Dcassandra.jmx.remote.login.config=CassandraLogin"
-#JVM_OPTS="$JVM_OPTS -Djava.security.auth.login.config=$CASSANDRA_HOME/conf/cassandra-jaas.config"
+#JVM_OPTS="$JVM_OPTS -Djava.security.auth.login.config=$CASSANDRA_CONF/cassandra-jaas.config"
 
 ## Cassandra also ships with a helper for delegating JMX authz calls to the configured IAuthorizer,
 ## uncomment this to use it. Requires one of the two authentication options to be enabled
@@ -291,7 +291,7 @@ JVM_OPTS="$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/
 
 # To use mx4j, an HTML interface for JMX, add mx4j-tools.jar to the lib/
 # directory.
-# See http://wiki.apache.org/cassandra/Operations#Monitoring_with_MX4J
+# See http://cassandra.apache.org/doc/3.11/operating/metrics.html#jmx
 # By default mx4j listens on 0.0.0.0:8081. Uncomment the following lines
 # to control its listen address and port.
 #MX4J_ADDRESS="-Dmx4jaddress=127.0.0.1"
