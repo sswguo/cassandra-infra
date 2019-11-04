@@ -29,6 +29,8 @@ spec:
           name: jmx
         - containerPort: 9042
           name: cql
+        - containerPort: 7070
+          name: metrics
         resources:
           limits:
             cpu: "500m"
