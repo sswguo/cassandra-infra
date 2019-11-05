@@ -7,6 +7,9 @@ metadata:
 spec:
   clusterIP: None
   ports:
-  - port: 9042
+  - name: 'CQL'
+    port: 9042
+  - name: 'Metrics'
+    port: 7070
   selector:
     app: cassandra-cluster
