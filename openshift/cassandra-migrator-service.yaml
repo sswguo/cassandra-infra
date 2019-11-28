@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: cassandra-cluster
-  name: cassandra-cluster
+    app: cassandra-migrator
+  name: cassandra-migrator
 spec:
   clusterIP: None
   ports:
@@ -14,4 +14,4 @@ spec:
   - name: 'jmx'
     port: 7199
   selector:
-    app: cassandra-cluster
+    app: cassandra-migrator

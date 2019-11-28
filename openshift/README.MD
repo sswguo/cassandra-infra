@@ -16,3 +16,8 @@ oc create -f cassandra-service.yaml
 ````
 oc create -f cassandra-statefulset.yaml
 ````
+
+### Scale the auth node
+````
+ALTER KEYSPACE system_auth WITH replication = {'class': 'NetworkTopologyStrategy', 'dc1': 3};
+````
