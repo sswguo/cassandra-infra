@@ -151,8 +151,18 @@ RUN set -eux; \
 # https://issues.apache.org/jira/browse/CASSANDRA-11661
 	sed -ri 's/^(JVM_PATCH_VERSION)=.*/\1=25/' "$CASSANDRA_CONFIG/cassandra-env.sh"
 
+RUN set -eux; \
+        apt-get update; \
+        apt-get install -y --no-install-recommends \
+                python3-pip \
+        ; \
+        rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install schedule
+
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh /docker-entrypoint.sh # backwards compat
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 RUN mkdir -p /var/lib/cassandra "$CASSANDRA_CONFIG" \
@@ -162,6 +172,12 @@ VOLUME /var/lib/cassandra
 
 RUN mkdir -p /opt/jmx_prometheus
 COPY jmx_prometheus_javaagent/* /opt/jmx_prometheus/
+
+RUN mkdir -p /opt/cassandra_backups/snapshots \
+        && chown -R cassandra:cassandra /opt/cassandra_backups \
+        && chmod 777 /opt/cassandra_backups
+#COPY bin/backup.py /opt/cassandra_backups/default_backup.py
+
 # 7000: intra-node communication
 # 7001: TLS intra-node communication
 # 7199: JMX

@@ -89,4 +89,15 @@ fi
 set -eux
 echo 'JVM_OPTS="$JVM_OPTS -javaagent:'/opt/jmx_prometheus/jmx_prometheus_javaagent-0.12.0.jar=7070:/opt/jmx_prometheus/cassandra.yml'"' >> $CASSANDRA_CONFIG/cassandra-env.sh
 
+#touch /var/lib/cassandra/backup.log
+if [ -f "/custom/cassandra/config/backup.py" ]
+then
+  echo "Copying custom script for backup..."
+  cp -f /custom/cassandra/config/backup.py /opt/cassandra_backups/
+  nohup python3 /opt/cassandra_backups/backup.py > /var/lib/cassandra/backup.log &
+else
+  echo "Default script for backup..."
+  #nohup python3 /opt/cassandra_backups/default_backup.py > /var/lib/cassandra/backup.log &
+fi
+
 exec "$@"

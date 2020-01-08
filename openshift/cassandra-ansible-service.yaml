@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cassandra-ansible
+  name: cassandra-ansible
+spec:
+  clusterIP: None
+  ports:
+  - name: 'cql'
+    port: 9042
+  - name: 'metrics'
+    port: 7070
+  - name: 'jmx'
+    port: 7199
+  selector:
+    app: cassandra-migrator
