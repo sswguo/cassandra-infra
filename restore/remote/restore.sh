@@ -28,7 +28,7 @@ then
    help
 fi
 
-clear()
+clearData()
 {
   #TODO Before starting to backup and restore, it's better to do snapshot first
   echo "Clear the data."
@@ -39,7 +39,8 @@ clear()
     rm -r /var/lib/cassandra/commitlog/*
     rm -f /var/lib/cassandra/saved_caches/*
     echo "clear the keyspace data"
-    ls -lh /var/lib/cassandra/data/$keyspace/*/*.db
+    #ls -lh /var/lib/cassandra/data/$keyspace/*/*.db
+    echo /var/lib/cassandra/data/$keyspace/*/*.db
     rm /var/lib/cassandra/data/$keyspace/*/*.db
   fi
   echo "Clear data done."
@@ -82,6 +83,6 @@ echo "DryRun $dry_run"
 #tables=("pathmap" "filechecksum" "reclaim" "reversemap")
 tables=("pathmap")
 
-clear
+clearData
 pickSnapshot
 fresh
