@@ -1,27 +1,27 @@
 Rsync the shell files into remote cassandra node:
 ```
-local/rsync.sh -s cassandra-wguo-test
+local/rsync.sh -s $SERVICE
 ```
 
 Drain and shut down each Cassandra node in the cluster, one node at a time.
 ```
-local/ops.sh -s cassandra-wguo-test -o drain
+local/ops.sh -s $SERVICE -o drain
 ```
 
 Restore the data:
 ```
-local/restore.sh -s cassandra-wguo-test -k indyss -n indyss-01
+local/restore.sh -s $SERVICE -k $KEYSPACE -n $SNAPSHOT
 ```
 
 
 Restart the cassandra node:
 ```
-local/ops.sh -s cassandra-wguo-test -o delete
+local/ops.sh -s $SERVICE -o delete
 ```
 
 Repair the node:
 ```
-local/ops.sh -s cassandra-wguo-test -o repair
+local/ops.sh -s $SERVICE -o repair
 ```
 
 Helpful links:  

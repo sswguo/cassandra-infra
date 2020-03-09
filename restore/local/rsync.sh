@@ -4,7 +4,7 @@ help()
 {
    echo ""
    echo "Usage: $0 -s service"
-   echo -e "\t-o Please specify the keyspace to be backup."
+   echo -e "\t-s Please specify the service to be backup."
    exit 1 # Exit script after printing help
 }
 
@@ -28,7 +28,7 @@ sync()
     index=(0 1 2)
     for i in "${index[@]}"
     do
-        echo "sync the files into the cassandra node '$service-$i'"
+        echo "rsync the script files into the cassandra node '$service-$i'"
         oc rsync remote/ $service-$i:/var/lib/cassandra/data/
     done
 }

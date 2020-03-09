@@ -4,8 +4,9 @@ help()
 {
    echo ""
    echo "Usage: $0 -s service -k keyspace -n snapshot"
+   echo -e "\t-s Please specify the service to be restored."
    echo -e "\t-k Please specify the keyspace to be backup."
-   echo -e "\t-sn Please specify the snapshot to be restored."
+   echo -e "\t-n Please specify the snapshot to be restored."
    exit 1 # Exit script after printing help
 }
 
@@ -28,7 +29,7 @@ fi
 
 restore()
 {
-    oc rsh $service-0 /var/lib/cassandra/data/restore.sh -k $keyspace -s $snapshot
+    oc rsh $service-0 /var/lib/cassandra/data/restore.sh -k $keyspace -n $snapshot
     oc rsh $service-1 /var/lib/cassandra/data/non-seednode-clear.sh -k $keyspace
     oc rsh $service-2 /var/lib/cassandra/data/non-seednode-clear.sh -k $keyspace
 }

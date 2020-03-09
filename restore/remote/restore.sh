@@ -3,7 +3,7 @@
 help()
 {
    echo ""
-   echo "Usage: $0 -k keyspace -s snapshot"
+   echo "Usage: $0 -k keyspace -n snapshot"
    echo -e "\t-k Please specify the keyspace to be backup."
    echo -e "\t-s Please specify the snapshot to be restored."
    exit 1 # Exit script after printing help
@@ -11,11 +11,11 @@ help()
 
 dry_run=0
 
-while getopts "k:s:d:" opt
+while getopts "k:n:d:" opt
 do
    case "$opt" in
       k ) keyspace="$OPTARG" ;;
-      s ) snapshot="$OPTARG" ;;
+      n ) snapshot="$OPTARG" ;;
       d ) dry_run=1;;
       ? ) help ;; # Print help in case parameter is non-existent
    esac
