@@ -72,12 +72,6 @@ fresh()
       nodetool refresh $keyspace $t
     fi
   done
-  if [ "$dry_run" -eq 1 ]; then
-    echo "[dry_run] repair the keyspace $keyspace."
-  else
-    echo "repair the keyspace $keyspace."
-    #nodetool repair $keyspace
-  fi
 }
 
 ### Main script starts here
