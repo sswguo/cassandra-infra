@@ -16,22 +16,10 @@ RUN curl --silent --location --retry 3 \
 
 RUN set -eux; \
 apt-get update; \
-	apt-get install -y --no-install-recommends \
-		git \
-	; \
-	rm -rf /var/lib/apt/lists/*;
-
-RUN set -eux; \
-apt-get update; \
         apt-get install -y --no-install-recommends \
+                git \
                 ssh \
                 vim \
-        ; \
-        rm -rf /var/lib/apt/lists/*;
-
-RUN set -eux; \
-apt-get update; \
-        apt-get install -y --no-install-recommends \
                 make \
         ; \
         rm -rf /var/lib/apt/lists/*;
